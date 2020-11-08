@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="form-content">
+  
+  <form [formGroup]="validations_form" (ngSubmit)="onSubmit(validations_form.value)">
+    <div formGroupName="dni_validation">
+      <ion-item>
+        <ion-label position="floating">Fecha de nacimiento</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY" min="1960-03-14" max="2020-12-09" value="" formControlName="age"></ion-datetime>
+      </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.age">
+          <div class="error-message" *ngIf="validations_form.get('dni_validation').get('age').hasError(validation.type)
+          && validations_form.get('dni_validation').get('age').touched">
+          
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    
+  <ion-item>
+  <ion-label position="floating" color="primary">Nombre y apellidos</ion-label>
+  <ion-input type="text" formControlName="nombre"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.nombre">
+      <div class="error-message" *ngIf="validations_form.get('nombre').hasError(validation.type)
+      && validations_form.get('nombre').touched">
+        <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+    <ion-item>
+      <ion-label position="floating" color="primary">DNI</ion-label>
+      <ion-input type="text" formControlName="dni"></ion-input>
+    </ion-item>
+  <ion-button color="primary" class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit data</ion-button>
+  </form>
+  
+  </ion-content>
