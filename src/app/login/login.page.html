@@ -25,6 +25,15 @@
         <ion-label position="floating" color="primary">DNI</ion-label>
         <ion-input type="text" formControlName="dni"></ion-input>
       </ion-item>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.dni">
+          <div class="error-message" *ngIf="validations_form.get('dni_validation').get('dni').hasError(validation.type)
+          && validations_form.get('dni_validation').get('dni').touched">
+          
+            <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
     </div>
     
   <ion-item>

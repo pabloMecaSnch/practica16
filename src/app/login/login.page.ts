@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { Usuario } from './entidades/Usuario';
+import {NavigationExtras} from '@angular/router';
 
 
 @Component({
@@ -31,7 +33,8 @@ export class LoginPage implements OnInit {
     }
 
   constructor(
-    public formBuilder: FormBuilder) {
+    public formBuilder: FormBuilder,
+    public navCtrl : NavController) {
       
      }
      mayorEdad(e : any){
@@ -78,6 +81,19 @@ export class LoginPage implements OnInit {
       ])),
     });
    
+  }
+  onSubmit(values){
+    let usuario:Usuario;
+    usuario=new Usuario(values['dni_validation']['dni'].toUpperCase(),
+      values['nombre'],
+      values['dni_validation']['age']
+    );
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          usuario: JSON.stringify(usuario)
+      }
+    };
+    this.navCtrl.navigateForward('/usuario', navigationExtras);
   }
  
   
